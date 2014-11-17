@@ -73,13 +73,15 @@ class Entity(object):
 # testcase templates #
 ######################
 
-class _1Env_1Entity_1Profile_TestCase(object):
+class _Common(object):
 
 	def setUp(self):
 		self.environment.setUp(self.environment_profile)
 
 	def tearDown(self):
 		self.environment.tearDown()
+
+class _1Env_1Entity_1Profile_TestCase(_Common):
 
 	def test_test_delete(self):
 		"the deletion of an inexisting instance fails"
@@ -114,7 +116,7 @@ class _1Env_1Entity_1Profile_TestCase(object):
 		self.entity.delete(key)
 		self.assertRaises(Exception, self.entity.delete, key)
 
-class _1Entity_NProfiles_TestCase(object):
+class _1Entity_NProfiles_TestCase(_Common):
 
 	def test_create_many_delete_many(self):
 		if self.entity.creation_policy in (0, 1):
