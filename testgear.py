@@ -46,7 +46,7 @@ class Entity(object):
 		Return the same key than create() on that profile if supported, None otherwise.
 		Examples:
 		- Not supported: (RDBMS, record id)
-		- Supported: (filesystme, filename)
+		- Supported: (filesystem, filename)
 		"""
 		return None
 
