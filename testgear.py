@@ -21,9 +21,11 @@ import unittest, abc
 # exceptions #
 ##############
 
-class NoSuchResource(Exception): pass
+class InvalidInput(Exception): pass
 
-class CreationFailure(Exception): pass
+class ResourceExists(Exception): pass
+
+class NoSuchResource(Exception): pass
 
 ##############
 # interfaces #
@@ -98,7 +100,7 @@ class _ProfiledEntity_In_ProfiledEnvironment_TestCase(_Common):
 		"creating twice the same instance...(result depends on creation policy)"
 		key1 = self.entity.create(self.entity_profile)
 		if self.entity.creation_policy == 0:
-			self.assertRaises(CreationFailure, self.entity.create, self.entity_profile)
+			self.assertRaises(ResourceExists, self.entity.create, self.entity_profile)
 		elif self.entity.creation_policy == 1:
 			key2 = self.entity.create(self.entity_profile)
 			self.assertEqual(key1, key2)
@@ -114,11 +116,11 @@ class _ProfiledEntity_In_ProfiledEnvironment_TestCase(_Common):
 		self.entity.delete(key)
 		self.assertRaises(NoSuchResource, self.entity.delete, key)
 
-	def test_invalid_creation(self):
+	def test_invalid_input_on_creation(self):
 		"creation with an invalid input fails"
 		for tampering in self.entity.tamperings:
 			self.assertRaises(
-				CreationFailure,
+				InvalidInput,
 				self.entity.create,
 				profile = self.entity_profile,
 				tampering = tampering)
@@ -176,10 +178,11 @@ def generate_testsuite(environment, entities):
 	return testsuite
 
 def test(environment, entities, failfast = False, verbosity = 2):
+	"generate and run test cases, return unittest.TestResult"
 	testsuite = generate_testsuite(environment, entities)
-	unittest.TextTestRunner(
+	return unittest.TextTestRunner(
 		failfast = failfast,
-		verbosity = 2).run(testsuite)
+		verbosity = verbosity).run(testsuite)
 
 ############
 # selftest #
