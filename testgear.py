@@ -18,6 +18,14 @@ __version__ = "0.1"
 import unittest, abc
 
 ##############
+# exceptions #
+##############
+
+class NoSuchResource(Exception): pass
+
+class CreationFailure(Exception): pass
+
+##############
 # interfaces #
 ##############
 
@@ -41,6 +49,9 @@ class Entity(object):
 
 	profiles = ("default",)
 
+	tamperings = ()
+
+	@abc.abstractmethod
 	def get_key(self, profile):
 		"""
 		Return the same key than create() on that profile if supported, None otherwise.
@@ -56,7 +67,7 @@ class Entity(object):
 	creation_policy = 0
 
 	@abc.abstractmethod
-	def create(self, profile):
+	def create(self, profile, tampering = None):
 		"return the instance key (aka. record id for a rdbms)"
 		pass
 
@@ -81,14 +92,14 @@ class _Common(object):
 	def tearDown(self):
 		self.environment.tearDown()
 
-class _1Env_1Entity_1Profile_TestCase(_Common):
+class _ProfiledEntity_In_ProfiledEnvironment_TestCase(_Common):
 
 	def test_test_delete(self):
 		"the deletion of an inexisting instance fails"
 		key = self.entity.get_key(self.entity_profile)
 		if key is not None:
 			self.assertFalse(self.entity.exists(key))
-			self.assertRaises(Exception, self.entity.delete, key)
+			self.assertRaises(NoSuchResource, self.entity.delete, key)
 
 	def test_create_test_delete(self):
 		"a created instance exists and can be deleted"
@@ -98,9 +109,10 @@ class _1Env_1Entity_1Profile_TestCase(_Common):
 		self.assertFalse(self.entity.exists(key), "%s: not deleted" % key)
 
 	def test_creation_policy(self):
+		"creating twice the same instance...(result depends on creation policy)"
 		key1 = self.entity.create(self.entity_profile)
 		if self.entity.creation_policy == 0:
-			self.assertRaises(Exception, self.entity.create, self.entity_profile)
+			self.assertRaises(CreationFailure, self.entity.create, self.entity_profile)
 		elif self.entity.creation_policy == 1:
 			key2 = self.entity.create(self.entity_profile)
 			self.assertEqual(key1, key2)
@@ -114,16 +126,34 @@ class _1Env_1Entity_1Profile_TestCase(_Common):
 		"a same instance cannot be deleted twice"
 		key = self.entity.create(self.entity_profile)
 		self.entity.delete(key)
-		self.assertRaises(Exception, self.entity.delete, key)
+		self.assertRaises(NoSuchResource, self.entity.delete, key)
 
-class _1Entity_NProfiles_TestCase(_Common):
+	def test_invalid_creation(self):
+		"creation with an invalid input fails"
+		for tampering in self.entity.tamperings:
+			self.assertRaises(
+				CreationFailure,
+				self.entity.create,
+				profile = self.entity_profile,
+				tampering = tampering)
 
-	def test_create_many_delete_many(self):
+class _Entity_In_ProfiledEnvironment_TestCase(_Common):
+
+	def _create_many(self):
+		"create many instances, return keys"
 		if self.entity.creation_policy in (0, 1):
-			keys = tuple(self.entity.create(profile) for profile in self.entity.profiles)
+			return tuple(self.entity.create(profile) for profile in self.entity.profiles)
 		else:
-			keys = tuple(self.entity.create(profile) for profile in self.entity.profiles * 1000)
+			return tuple(self.entity.create(profile) for profile in self.entity.profiles * 1000)
+
+	def test_create_many_delete_many_fifo(self):
+		keys = self._create_many()
 		for key in keys:
+			self.entity.delete(key)
+
+	def test_create_many_delete_many_lifo(self):
+		keys = self._create_many()
+		for key in reversed(keys):
 			self.entity.delete(key)
 
 ################################
@@ -134,21 +164,24 @@ def generate_testsuite(environment, entities):
 	testsuite = unittest.TestSuite()
 	for environment_profile in environment.profiles:
 		for entity in entities:
-			# _1Env_1Entity_1Profile_TestCase
+			# _ProfiledEntity_In_ProfiledEnvironment_TestCase
 			for entity_profile in entity.profiles:
-				name = "Test_%s%s_in_%sEnv" % (
+				name = "%s%s_In_%sEnvironment_TestCase" % (
 					entity_profile.title(),
 					type(entity).__name__,
 					environment_profile.title())
-				cls = type(name, (_1Env_1Entity_1Profile_TestCase, unittest.TestCase), {
+				cls = type(name, (_ProfiledEntity_In_ProfiledEnvironment_TestCase, unittest.TestCase), {
 					"environment_profile": environment_profile,
 					"environment": environment,
 					"entity_profile": entity_profile,
 					"entity": entity,
 				})
 				testsuite.addTest(unittest.makeSuite(cls))
-			# _1Entity_NProfiles_TestCase
-			cls = type(name, (_1Entity_NProfiles_TestCase, unittest.TestCase), {
+			# _Entity_In_ProfiledEnvironment_TestCase
+			name = "%s_In_%sEnvironment_TestCase" % (
+				type(entity).__name__,
+				environment_profile.title())
+			cls = type(name, (_Entity_In_ProfiledEnvironment_TestCase, unittest.TestCase), {
 				"environment_profile": environment_profile,
 				"environment": environment,
 				"entity": entity,
@@ -156,9 +189,11 @@ def generate_testsuite(environment, entities):
 			testsuite.addTest(unittest.makeSuite(cls))
 	return testsuite
 
-def test(environment, entities):
+def test(environment, entities, failfast = False, verbosity = 2):
 	testsuite = generate_testsuite(environment, entities)
-	unittest.TextTestRunner(verbosity = 2).run(testsuite)
+	unittest.TextTestRunner(
+		failfast = failfast,
+		verbosity = 2).run(testsuite)
 
 ############
 # selftest #
@@ -181,10 +216,13 @@ if __name__ == "__main__":
 		def __init__(self):
 			self.created = {}
 
+		def get_key(self, profile):
+			return profile
+
 		creation_policy = 1
 
-		def create(self, profile):
-			key = profile
+		def create(self, profile, tampering = None):
+			key = self.get_key(profile)
 			self.created[key] = True
 			return key
 
@@ -192,7 +230,8 @@ if __name__ == "__main__":
 			return key in self.created and self.created[key]
 
 		def delete(self, key):
-			assert key in self.created and self.created[key], "no such instance"
+			if not self.exists(key):
+				raise NoSuchResource(key)
 			self.created[key] = False
 
 		def update(self, key, profile): pass
@@ -200,3 +239,4 @@ if __name__ == "__main__":
 	test(
 		environment = FakeEnvironment(),
 		entities = (FakeEntity(),))
+
