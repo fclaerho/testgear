@@ -13,7 +13,7 @@ Both Environment and Entity support profiles to vary the created instances.
 Testgear uses the native python unittest framework to build the testcases.
 """
 
-__version__ = "0.1"
+__version__ = "0.2"
 
 import unittest, abc
 
