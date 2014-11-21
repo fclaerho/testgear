@@ -21,11 +21,11 @@ import unittest, abc
 # exceptions #
 ##############
 
-class InvalidInput(Exception): pass
-
 class ResourceExists(Exception): pass
 
 class NoSuchResource(Exception): pass
+
+class ValidationError(Exception): pass
 
 ##############
 # interfaces #
@@ -120,7 +120,7 @@ class _ProfiledEntity_In_ProfiledEnvironment_TestCase(_Common):
 		"creation with an invalid input fails"
 		for tampering in self.entity.tamperings:
 			self.assertRaises(
-				InvalidInput,
+				ValidationError,
 				self.entity.create,
 				profile = self.entity_profile,
 				tampering = tampering)

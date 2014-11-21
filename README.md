@@ -27,9 +27,9 @@ Available Languages:
 
 ### INTERFACE SPECIFICATION
 
-  * Exception `InvalidInput`
   * Exception `NoSuchResource`
   * Exception `ResourceExists`
+  * Exception `ValidationError`
   * Class `Environment`:
     * List `profiles` = ("default",);
       Add any profile you see fit.
@@ -49,8 +49,9 @@ Available Languages:
       * 1: `create`() is idempotent
       * 2: multiple instances of the same profile can be created
     * Abstract `create`(profile, tampering = `None`);
-      Create the instance, return a key on success, raise `ResourceExists` or `InvalidInput` on error;
-      The tampering parameter indicates how to corrupt the initial profile and if it's set, an `InvalidInput` exception is expected.
+      Create the instance, return a key on success, raise `ResourceExists` or `ValidationError` on error;
+      The tampering parameter indicates how to corrupt the initial profile;
+      If the tampering parameter is not `None`, a `ValidationError` is expected.
     * Abstract `exists`(key);
       Return `True` if the instance exists, `False` otherwise
     * Abstract `delete`(key);
