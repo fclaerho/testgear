@@ -1,7 +1,4 @@
-TestGear
-========
-
-### OVERVIEW
+### DESCRIPTION
 
 TestGear is a Test Generation Framework:
 it's packed with the usual test patterns so that you just have to interface your
@@ -9,11 +6,11 @@ code with the framework to get an off-the-shelf test suite instead of recoding t
 
 Available Patterns:
   * CRUD
-  * (to be completed)
+  * _(to be completed)_
 
 Available Languages:
   * Python2.7
-  * (to be completed)
+  * _(to be completed)_
 
 ### HOWTO
 
@@ -28,7 +25,7 @@ Available Languages:
   4. Implement the `testgear.Entity` interface for all your data model entities
   5. Call `testgear.test`() on the environment and entities
 
-### SPEC
+### INTERFACE SPECIFICATION
 
   * Exception `NoSuchResource`
   * Exception `CreationFailure`
@@ -50,7 +47,7 @@ Available Languages:
       * 0: `create`() cannot be called twice with the same profile
       * 1: `create`() is idempotent
       * 2: multiple instances of the same profile can be created
-    * Abstract `create`(profile, tampering = None);
+    * Abstract `create`(profile, tampering = `None`);
       Create the instance, return a key on success, raise `CreationFailure` on error;
       The tampering parameter indicates how to corrupt the initial profile and if it's set, a `CreationFailure` is expected.
     * Abstract `exists`(key);
