@@ -46,7 +46,7 @@ Available Languages:
       Add any tampering you see fit
     * Abstract `get_key`(profile);
       Return the same key than `create`() on that profile if supported, `None` otherwise
-    * Integer `creation_policy` = 1;
+    * Integer `creation_policy` = 0;
       * 0: `create`() cannot be called twice with the same profile
       * 1: `create`() is idempotent
       * 2: multiple instances of the same profile can be created

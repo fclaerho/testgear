@@ -36,9 +36,7 @@ class Environment(object):
 	profiles = ("default",)
 
 	@abc.abstractmethod
-	def setUp(self, profile):
-		"create a test environment not containing any of the entity profiles below"
-		pass
+	def setUp(self, profile): pass
 
 	@abc.abstractmethod
 	def tearDown(self): pass
@@ -52,24 +50,12 @@ class Entity(object):
 	tamperings = ()
 
 	@abc.abstractmethod
-	def get_key(self, profile):
-		"""
-		Return the same key than create() on that profile if supported, None otherwise.
-		Examples:
-		- Not supported: (RDBMS, record id)
-		- Supported: (filesystem, filename)
-		"""
-		return None
+	def get_key(self, profile): pass
 
-	# 0: create() cannot be called twice with the same profile
-	# 1: create() is idempotent
-	# 2: multiple instances of the same profile can be created
 	creation_policy = 0
 
 	@abc.abstractmethod
-	def create(self, profile, tampering = None):
-		"return the instance key (aka. record id for a rdbms)"
-		pass
+	def create(self, profile, tampering = None): pass
 
 	@abc.abstractmethod
 	def exists(self, key): pass
