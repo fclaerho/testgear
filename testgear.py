@@ -112,7 +112,8 @@ class _ProfiledEntity_In_ProfiledEnvironment_TestCase(_Common):
 				ValidationError,
 				self.entity.create,
 				profile = self.entity_profile,
-				tampering = tampering)
+				tampering = tampering,
+				msg = "%s: unexpected behavior on tampering" % tampering)
 
 class _Entity_In_ProfiledEnvironment_TestCase(_Common):
 
