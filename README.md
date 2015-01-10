@@ -1,4 +1,11 @@
-### DESCRIPTION
+	  ______          __  ______               
+	 /_  __/__  _____/ /_/ ____/__  ____ ______
+	  / / / _ \/ ___/ __/ / __/ _ \/ __ `/ ___/
+	 / / /  __(__  ) /_/ /_/ /  __/ /_/ / /    
+	/_/  \___/____/\__/\____/\___/\__,_/_/     
+
+DESCRIPTION
+-----------
 
 TestGear is a Test Generation Framework:
 it's packed with the usual test patterns so that you just have to interface your
@@ -12,7 +19,8 @@ Available Languages:
   * Python2.7
   * _(to be completed)_
 
-### HOWTO
+HOWTO
+-----
 
   1. Checkout the framework in your project `vendor/` directory
 
@@ -25,7 +33,8 @@ Available Languages:
   4. Implement the `testgear.Entity` interface for all your data model entities
   5. Call `testgear.test`() on the environment and entities
 
-### INTERFACE SPECIFICATION
+INTERFACE SPECIFICATION
+-----------------------
 
   * Exception `NoSuchResource`
   * Exception `ResourceExists`
@@ -58,4 +67,3 @@ Available Languages:
       Delete the instance, return nothing on success, raise `NoSuchResource` if the instance does not exist
     * Abstract `update`(key, profile);
       Update the instance to a new profile, return nothing on success, raise `NoSuchResource` if the instance does not exist
-
