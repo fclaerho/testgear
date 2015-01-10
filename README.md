@@ -7,16 +7,12 @@
 DESCRIPTION
 -----------
 
-TestGear is a Test Generation Framework:
+TestGear is a Test Generation Framework for Python:
 it's packed with the usual test patterns so that you just have to interface your
 code with the framework to get an off-the-shelf test suite instead of recoding the wheel every time.
 
 Available Patterns:
   * CRUD
-  * _(to be completed)_
-
-Available Languages:
-  * Python2.7
   * _(to be completed)_
 
 HOWTO
