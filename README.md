@@ -42,6 +42,7 @@ INTERFACE SPECIFICATION
   * Class `Environment`:
     * List `profiles` = ("default",);
       Add any profile you see fit.
+      The profile will be passed as argument at the entity creation.
     * Abstract `setUp`(profile);
       Setup a new test environment, it may be populated with anything but not with the profiles of your entities
     * Abstract `tearDown`();
@@ -51,7 +52,8 @@ INTERFACE SPECIFICATION
       Add any profile you see fit.
       The profile will be passed as argument at the entity creation.
     * List `tamperings` = ();
-      Add any tampering you see fit
+      Add any tampering you see fit.
+      The tampering will be passed as argument at the entity creation.
     * Abstract `get_key`(profile);
       Return the same key than `create`() on that profile if supported, `None` otherwise
     * Integer `creation_policy` = 0;
