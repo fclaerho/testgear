@@ -49,6 +49,7 @@ INTERFACE SPECIFICATION
   * Class `Entity`:
     * List `profiles` = ("default",);
       Add any profile you see fit.
+      The profile will be passed as argument at the entity creation.
     * List `tamperings` = ();
       Add any tampering you see fit
     * Abstract `get_key`(profile);
