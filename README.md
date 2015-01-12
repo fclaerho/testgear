@@ -25,6 +25,7 @@ USAGE
   3. Implement the `testgear.Environment` interface to control the test environment
   4. Implement the `testgear.Entity` interface for all your data model entities
   5. Call `testgear.test`(%environment%, (%entity%…)) to run the tests
+     The number of tests generated will vary depending on the number of profiles and tampering configurations you've configured.
 
 To retrieve the test suite instead of running the tests, call `testgear.generate_testsuite`(%environment%, (%entity%…)).
 
