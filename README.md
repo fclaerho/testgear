@@ -28,7 +28,7 @@ USAGE
 
 To retrieve the test suite instead of running the tests, call `testgear.generate_testsuite`(%environment%, (%entity%…)).
 
-To make the test suite accessible to unittest from `loadTestsFromModule`():
+To let unittest autoload the suite, implement the `load_tests` Protocol:
 
 	def load_tests(loader, standard_tests, pattern):
 		return testgear.generate_testsuite(%environment%, (%entity%…))
