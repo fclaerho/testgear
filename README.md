@@ -21,10 +21,17 @@ USAGE
 		$ git submodule add http://www.github.com/fclaerho/testgear.git
 		# otherwise just checkout the code
 
-  2. Import the testgear module
+  2. `import testgear`
   3. Implement the `testgear.Environment` interface to control the test environment
   4. Implement the `testgear.Entity` interface for all your data model entities
-  5. Call `testgear.test`() on the environment and entities
+  5. Call `testgear.test`(%environment%, (%entity%…)) to run the tests
+
+To retrieve the test suite instead of running the tests, call `testgear.generate_testsuite`(%environment%, (%entity%…)).
+
+To make the test suite accessible to unittest from `loadTestsFromModule`():
+
+	def load_tests(loader, standard_tests, pattern):
+		return testgear.generate_testsuite(%environment%, (%entity%…))
 
 INTERFACE SPECIFICATION
 -----------------------
