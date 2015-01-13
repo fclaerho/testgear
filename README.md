@@ -75,3 +75,9 @@ INTERFACE SPECIFICATION
 **BEWARE**
 The testgear exceptions on `create()`, `delete()` and `update()` should simply be re-mapped from the underlying exceptions.
 Do not add any check into your `Resources` implementations!
+
+**DEVELOPMENT**
+
+To run tests:
+
+	$ make
