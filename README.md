@@ -24,7 +24,7 @@ USAGE
 
   2. `import testgear`
   3. Implement the `testgear.Environment` interface to control the test environment
-  4. Implement the `testgear.Entity` interface for all your data model entities
+  4. Implement the `testgear.Resources` interface for all your resources
   5. Call `testgear.test`(%environment%, (%entity%…)) to run the tests
      The number of tests generated will vary depending on the number of profiles and tampering configurations you've configured.
 
@@ -51,7 +51,7 @@ INTERFACE SPECIFICATION
       Setup a new test environment, it may be populated with anything but not with the profiles of your entities
     * Abstract `tearDown`();
       Teardown the test environment
-  * Class `Entity`:
+  * Class `Resources`:
     * List `profiles` = ("default",);
       Add any profile you see fit.
       The profile will be passed as argument at the entity creation.
