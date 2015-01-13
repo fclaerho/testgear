@@ -25,39 +25,36 @@ USAGE
   2. `import testgear`
   3. Implement the `testgear.Environment` interface to control the test environment
   4. Implement the `testgear.Resources` interface for all your resources
-  5. Call `testgear.test`(%environment%, (%entity%…)) to run the tests
+  5. Call `testgear.test`(%environment%, (%resources%…)) to run the tests
      The number of tests generated will vary depending on the number of profiles and tampering configurations you've configured.
 
-To retrieve the test suite instead of running the tests, call `testgear.generate_testsuite`(%environment%, (%entity%…)).
+To retrieve the test suite instead of running the tests, call `testgear.generate_testsuite`(%environment%, (%resources%…)).
 
 To let unittest autoload the suite, implement the `load_tests` protocol:
 
 	def load_tests(loader, standard_tests, pattern):
-		return testgear.generate_testsuite(%environment%, (%entity%…))
+		return testgear.generate_testsuite(%environment%, (%resources%…))
 
 See https://docs.python.org/2/library/unittest.html#load-tests-protocol for details.
 
 INTERFACE SPECIFICATION
 -----------------------
 
-  * Exception `NoSuchResource`
-  * Exception `ResourceExists`
-  * Exception `ValidationError`
   * Class `Environment`:
     * List `profiles` = ("default",);
       Add any profile you see fit.
-      The profile will be passed as argument at the entity creation.
+      The profile will be passed as argument at the resource creation.
     * Abstract `setUp`(profile);
-      Setup a new test environment, it may be populated with anything but not with the profiles of your entities
+      Setup a new test environment, it may be populated with anything but not with the profiles of your resources
     * Abstract `tearDown`();
       Teardown the test environment
   * Class `Resources`:
     * List `profiles` = ("default",);
       Add any profile you see fit.
-      The profile will be passed as argument at the entity creation.
+      The profile will be passed as argument at the resource creation.
     * List `tamperings` = ();
       Add any tampering you see fit.
-      The tampering will be passed as argument at the entity creation.
+      The tampering will be passed as argument at the resource creation.
     * Abstract `get_key`(profile);
       Return the same key than `create`() on that profile if supported, `None` otherwise
     * Integer `creation_policy` = 0;
@@ -74,3 +71,7 @@ INTERFACE SPECIFICATION
       Delete the instance, return nothing on success, raise `NoSuchResource` if the instance does not exist
     * Abstract `update`(key, profile);
       Update the instance to a new profile, return nothing on success, raise `NoSuchResource` if the instance does not exist
+
+**BEWARE**
+The testgear exceptions on `create()`, `delete()` and `update()` should simply be re-mapped from the underlying exceptions.
+Do not add any check into the `Resources` implementation!
