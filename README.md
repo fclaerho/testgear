@@ -5,8 +5,8 @@
 	  | |  __/\__ \ |_ / , . \| |_\ \  __/ (_| | |   
 	  \_/\___||___/\__|\/|_|\/ \____/\___|\__,_|_|    
 
-TestGear is a **Test Generation Framework for Python**:
-it's packed with the usual test patterns so that you just have to interface your
+A **Test Generation Framework for Python**
+packed with the usual test patterns so that you just have to interface your
 code with the framework to get an off-the-shelf test suite instead of recoding the wheel every time.
 
 Available Patterns:
@@ -76,7 +76,8 @@ INTERFACE SPECIFICATION
 The testgear exceptions on `create()`, `delete()` and `update()` should simply be re-mapped from the underlying exceptions.
 Do not add any check into your `Resources` implementations!
 
-**DEVELOPMENT**
+DEVELOPMENT
+-----------
 
 To run tests:
 
