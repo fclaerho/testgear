@@ -25,7 +25,7 @@ USAGE
   2. `import testgear`
   3. Implement the `testgear.Environment` interface to control the test environment
   4. Implement the `testgear.Resources` interface for all your resources
-  5. Call `testgear.test`(%environment%, (%resources%…)) to run the tests
+  5. Call `testgear.test`(%environment%, {key:%resources%,…}) to run the tests
      The number of tests generated will vary depending on the number of profiles and tampering configurations you've configured.
 
 To retrieve the test suite instead of running the tests, call `testgear.generate_testsuite`(%environment%, (%resources%…)).
@@ -49,6 +49,7 @@ INTERFACE SPECIFICATION
     * Abstract `tearDown`();
       Teardown the test environment
   * Class `Resources`:
+    * Dict `resources` pointing to the resources argument of `.test()` and allowing to handle resources dependencies.
     * List `profiles` = ("default",);
       Add any profile you see fit.
       The profile will be passed as argument at the resource creation.

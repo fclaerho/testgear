@@ -39,4 +39,4 @@ class FakeResources(testgear.Resources):
 
 testgear.test(
 	environment = FakeEnvironment(),
-	resources = (FakeResources(),))
+	resources = {"foo": FakeResources()})

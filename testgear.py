@@ -140,7 +140,9 @@ class _Resource_In_ProfiledEnvironment_TestCase(_Common):
 def generate_testsuite(environment, resources):
 	testsuite = unittest.TestSuite()
 	for environment_profile in environment.profiles:
-		for resource in resources:
+		for resource in resources.values():
+			# allow each resource to access others to resolve dependencies
+			resource.resources = resources
 			# _ProfiledResource_In_ProfiledEnvironment_TestCase
 			for resource_profile in resource.profiles:
 				name = "%s%s_In_%sEnvironment_TestCase" % (
