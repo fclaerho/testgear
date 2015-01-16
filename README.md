@@ -5,8 +5,6 @@
 	  | |  __/\__ \ |_ / , . \| |_\ \  __/ (_| | |   
 	  \_/\___||___/\__|\/|_|\/ \____/\___|\__,_|_|   
 
-[![Build Status](https://secure.travis-ci.org/fclaerho/testgear.png?branch=master)](http://travis-ci.org/fclaerho/testgear) 
-
 A **Test Generation Framework for Python**
 packed with the usual test patterns so that you just have to interface your
 code with the framework to get an off-the-shelf test suite instead of recoding the wheel every time.
@@ -14,6 +12,8 @@ code with the framework to get an off-the-shelf test suite instead of recoding t
 Available Patterns:
   * CRUD
   * _(to be completed)_
+
+[![Build Status](https://secure.travis-ci.org/fclaerho/testgear.png?branch=master)](http://travis-ci.org/fclaerho/testgear) 
 
 USAGE
 -----
