@@ -3,7 +3,9 @@
 	  | | ___  ___| |_ \ ` ' /| |  \/ ___  __ _ _ __ 
 	  | |/ _ \/ __| __|_     _| | __ / _ \/ _` | '__|
 	  | |  __/\__ \ |_ / , . \| |_\ \  __/ (_| | |   
-	  \_/\___||___/\__|\/|_|\/ \____/\___|\__,_|_|    
+	  \_/\___||___/\__|\/|_|\/ \____/\___|\__,_|_|   
+
+[![Build Status](https://secure.travis-ci.org/fclaerho/testgear.png?branch=master)](http://travis-ci.org/fclaerho/testgear) 
 
 A **Test Generation Framework for Python**
 packed with the usual test patterns so that you just have to interface your
