@@ -86,7 +86,7 @@ class _ProfiledResource_In_ProfiledEnvironment_TestCase(_Common):
 		self.assertFalse(self.resource.exists(key), "%s: not deleted" % key)
 
 	def test_creation_policy(self):
-		"creating twice the same instance...(result depends on creation policy)"
+		"creating twice the same instance fails if policy=0, succeeds with the same key if =1, succeeds with different keys if =2"
 		key1 = self.resource.create(self.resource_profile)
 		if self.resource.creation_policy == 0:
 			self.assertRaises(ResourceExists, self.resource.create, self.resource_profile)
