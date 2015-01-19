@@ -121,7 +121,7 @@ class _Resource_In_ProfiledEnvironment_TestCase(_Common):
 		if self.resource.creation_policy in (0, 1):
 			return tuple(self.resource.create(profile) for profile in self.resource.profiles)
 		else:
-			return tuple(self.resource.create(profile) for profile in self.resource.profiles * 1000)
+			return tuple(self.resource.create(profile) for profile in self.resource.profiles for i in xrange(100))
 
 	def test_create_many_delete_many_fifo(self):
 		keys = self._create_many()
