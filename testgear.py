@@ -43,7 +43,7 @@ class Resources(object):
 	@abc.abstractmethod
 	def get_key(self, profile): pass
 
-	creation_policy = 0
+	creation_policy = 0 # Options: 0, 1, 2
 
 	@abc.abstractmethod
 	def create(self, profile, tampering = None): pass
@@ -86,18 +86,26 @@ class _ProfiledResource_In_ProfiledEnvironment_TestCase(_Common):
 		self.assertFalse(self.resource.exists(key), "%s: not deleted" % key)
 
 	def test_creation_policy(self):
-		"creating twice the same instance fails if policy=0, succeeds with the same key if =1, succeeds with different keys if =2"
-		key1 = self.resource.create(self.resource_profile)
-		if self.resource.creation_policy == 0:
-			self.assertRaises(ResourceExists, self.resource.create, self.resource_profile)
-		elif self.resource.creation_policy == 1:
-			key2 = self.resource.create(self.resource_profile)
-			self.assertEqual(key1, key2)
-		elif self.resource.creation_policy == 2:
-			key2 = self.resource.create(self.resource_profile)
-			self.assertNotEqual(key1, key2)
-		else:
-			raise Exception("%s: unsupported creation policy" % self.creation_policy)
+		"creating twice the same instance ..."
+		try:
+			key1 = self.resource.create(self.resource_profile)
+			if self.resource.creation_policy == 0:
+				self.assertRaises(ResourceExists, self.resource.create, self.resource_profile)
+			elif self.resource.creation_policy == 1:
+				key2 = self.resource.create(self.resource_profile)
+				self.assertEqual(key1, key2)
+			elif self.resource.creation_policy == 2:
+				key2 = self.resource.create(self.resource_profile)
+				self.assertNotEqual(key1, key2)
+			else:
+				raise Exception("%s: unsupported creation policy" % self.creation_policy)
+		except AssertionError:
+			print "** current creation policy is", self.resource.creation_policy, "- creating twice the same instance", {
+				"0": "should fail",
+				"1": "should succeed and return the same key",
+				"2": "should succeed and return a different key",
+			}["%s" % self.resource.creation_policy]
+			raise
 
 	def test_no_double_delete(self):
 		"a same instance cannot be deleted twice"
