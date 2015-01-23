@@ -71,14 +71,14 @@ class _Common(object):
 
 class _ProfiledResource_In_ProfiledEnvironment_TestCase(_Common):
 
-	def test_test_delete(self):
+	def test_not_exist_delete(self):
 		"the deletion of an inexisting instance fails"
 		key = self.resource.get_key(self.resource_profile)
 		if key is not None:
 			self.assertFalse(self.resource.exists(key))
 			self.assertRaises(NoSuchResource, self.resource.delete, key)
 
-	def test_create_test_delete(self):
+	def test_create_exist_delete(self):
 		"a created instance exists and can be deleted"
 		key = self.resource.create(self.resource_profile)
 		self.assertTrue(self.resource.exists(key), "%s: not created" % key)
