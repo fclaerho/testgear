@@ -13,8 +13,6 @@ Available Patterns:
   * CRUD
   * _(to be completed)_
 
-[![Build Status](https://secure.travis-ci.org/fclaerho/testgear.png?branch=master)](http://travis-ci.org/fclaerho/testgear) 
-
 USAGE
 -----
 
