@@ -8,5 +8,5 @@ clean:
 	@find . -name "*.pyc" -delete
 
 nosetests.xml: selftest.py
-	@nosetests --with-xunit $<
+	@nosetests --with-xunit $^
 
