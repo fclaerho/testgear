@@ -37,6 +37,12 @@ class FakeResources(testgear.Resources):
 
 	def update(self, key, profile): pass
 
-testgear.test(
-	environment = FakeEnvironment(),
-	resources = {"foo": FakeResources()})
+def load_tests(loader, tests, pattern):
+	return testgear.generate_testsuite(
+		environment = FakeEnvironment(),
+		resources = {"foo": FakeResources()})
+
+if __name__ == "__main__":
+	testgear.test(
+		environment = FakeEnvironment(),
+		resources = {"foo": FakeResources()})
