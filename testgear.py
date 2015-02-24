@@ -2,7 +2,7 @@
 
 "Test Generation Framework -- see bundled README.md for usage instructions"
 
-__version__ = "0.1"
+__version__ = "1.0.0"
 
 import unittest, abc
 
