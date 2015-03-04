@@ -1,8 +1,8 @@
-from setuptools import setup
+# copyright (c) 2015 fclaerhout.fr, released under the MIT license.
 
-import testgear
+import setuptools
 
-setup(
+setuptools.setup(
 	name = "testgear",
 	author = "fclaerhout.fr",
 	license = "MIT",
