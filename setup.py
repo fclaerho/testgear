@@ -4,8 +4,10 @@ import testgear
 
 setup(
 	name = "testgear",
-	version = testgear.__version__,
+	author = "fclaerhout.fr",
 	license = "MIT",
+	version = "1.0.0",
 	py_modules = ["testgear"],
 	test_suite = "selftest",
-	description = testgear.__doc__.splitlines()[0])
+	description = "Test Generation Framework",
+	author_email = "contact@fclaerhout.fr")

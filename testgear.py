@@ -1,9 +1,5 @@
 # copyright (c) 2014 fclaerhout.fr, released under the MIT license.
 
-"Test Generation Framework -- see bundled README.md for usage instructions"
-
-__version__ = "1.0.0"
-
 import unittest, abc
 
 ##############
