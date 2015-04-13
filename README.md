@@ -13,7 +13,8 @@ Available Patterns:
   * CRUD
   * _(to be completed)_
 
-### INSTALLATION
+INSTALLATION
+------------
 
 	$ pip install -i https://pypi.fclaerhout.fr/simple/ testgear
 
@@ -22,7 +23,8 @@ or, if that repository is not available:
 	$ git clone $this
 	$ python setup.py install
 
-### USAGE
+USAGE
+-----
 
   1. `import testgear`
   2. Implement the `testgear.Environment` interface to control the test environment
@@ -39,7 +41,8 @@ To let unittest autoload the suite, implement the `load_tests` protocol:
 
 See https://docs.python.org/2/library/unittest.html#load-tests-protocol for details.
 
-### INTERFACE SPECIFICATION
+INTERFACE SPECIFICATION
+-----------------------
 
   * Class `Environment`:
     * List `profiles` = ("default",);
@@ -74,7 +77,8 @@ See https://docs.python.org/2/library/unittest.html#load-tests-protocol for deta
     * Abstract `update`(key, profile);
       Update the instance to a new profile, return nothing on success, raise `NoSuchResource` if the instance does not exist
 
-### BEWARE
+IMPORTANT
+---------
 
 The testgear exceptions on `create()`, `delete()` and `update()` should simply be re-mapped from the underlying exceptions.
 Do not add any check into your `Resources` implementations!
