@@ -8,6 +8,6 @@ setuptools.setup(
 	license = "MIT",
 	version = "1.0.0",
 	py_modules = ["testgear"],
-	test_suite = "selftest",
+	test_suite = "test",
 	description = "Test Generation Framework",
 	author_email = "contact@fclaerhout.fr")
