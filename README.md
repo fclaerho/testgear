@@ -16,12 +16,12 @@ Available Patterns:
 INSTALLATION
 ------------
 
-	$ pip install --extra-index-url https://pypi.fclaerhout.fr/simple/ testgear
+	$ sudo pip install --extra-index-url https://pypi.fclaerhout.fr/simple/ testgear
 
 or, if that repository is not available:
 
 	$ git clone $this
-	$ python setup.py install
+	$ sudo python setup.py install
 
 To uninstall:
 
