@@ -16,7 +16,7 @@ Available Patterns:
 INSTALLATION
 ------------
 
-	$ pip install -i https://pypi.fclaerhout.fr/simple/ testgear
+	$ pip install --extra-index-url https://pypi.fclaerhout.fr/simple/ testgear
 
 or, if that repository is not available:
 
