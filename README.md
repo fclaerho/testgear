@@ -23,6 +23,10 @@ or, if that repository is not available:
 	$ git clone $this
 	$ python setup.py install
 
+To uninstall:
+
+	$ sudo pip uninstall testgear
+
 USAGE
 -----
 
