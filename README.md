@@ -39,7 +39,8 @@ To uninstall:
 
 	$ python setup.py develop --user --uninstall
 
-USAGE
+
+Usage
 -----
 
   1. `import testgear`
@@ -57,7 +58,7 @@ To let unittest autoload the suite, implement the `load_tests` protocol:
 
 See https://docs.python.org/2/library/unittest.html#load-tests-protocol for details.
 
-INTERFACE SPECIFICATION
+Interface Specification
 -----------------------
 
   * Class `Environment`:
