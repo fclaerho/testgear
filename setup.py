@@ -6,7 +6,7 @@ setuptools.setup(
 	name = "testgear",
 	author = "fclaerhout.fr",
 	license = "MIT",
-	version = "1R",
+	version = "1",
 	py_modules = ["testgear"],
 	test_suite = "test",
 	description = "Test Generation Framework",
