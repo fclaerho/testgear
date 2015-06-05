@@ -16,29 +16,27 @@ Available Patterns:
 End-user Installation
 ---------------------
 
-	$ pip install --user --extra-index-url https://pypi.fclaerhout.fr/simple/ --pre testgear
-	$ export PATH="$PATH:~/.local/bin"
+	$ sudo pip install --extra-index-url https://pypi.fclaerhout.fr/simple/ testgear
 
 or, if that repository is not available:
 
 	$ git clone $this
-	$ sudo python setup.py install --user
+	$ sudo python setup.py install
 
 To uninstall:
 
-	$ pip uninstall testgear
+	$ sudo pip uninstall testgear
 
 Developer Installation
 ----------------------
 
 To install:
 
-	$ python setup.py develop --user
+	$ sudo python setup.py develop
 
 To uninstall:
 
-	$ python setup.py develop --user --uninstall
-
+	$ sudo python setup.py develop --uninstall
 
 Usage
 -----
